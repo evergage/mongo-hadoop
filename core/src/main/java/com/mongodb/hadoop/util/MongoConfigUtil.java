@@ -262,18 +262,18 @@ public final class MongoConfigUtil {
     /**
      * One client per thread
      */
-    private static final ThreadLocal<Map<MongoClientURI, MongoClient>> CLIENTS =
-      new ThreadLocal<Map<MongoClientURI, MongoClient>>() {
-          @Override public Map<MongoClientURI, MongoClient> initialValue() {
-              return new HashMap<MongoClientURI, MongoClient>();
+    private static final ThreadLocal<Map<String, MongoClient>> CLIENTS =
+      new ThreadLocal<Map<String, MongoClient>>() {
+          @Override public Map<String, MongoClient> initialValue() {
+              return new HashMap<String, MongoClient>();
           }
       };
 
-    private static final ThreadLocal<Map<MongoClient, MongoClientURI>> URI_MAP =
-      new ThreadLocal<Map<MongoClient, MongoClientURI>>() {
+    private static final ThreadLocal<Map<MongoClient, String>> URI_MAP =
+      new ThreadLocal<Map<MongoClient, String>>() {
           @Override
-          public Map<MongoClient, MongoClientURI> initialValue() {
-              return new HashMap<MongoClient, MongoClientURI>();
+          public Map<MongoClient, String> initialValue() {
+              return new HashMap<MongoClient, String>();
           }
       };
 
@@ -1039,7 +1039,7 @@ public final class MongoConfigUtil {
     }
 
     public static void close(final Mongo client) {
-            MongoClientURI uri = URI_MAP.get().remove(client);
+            String uri = URI_MAP.get().remove(client);
             if (uri != null) {
                 MongoClient remove;
                 remove = CLIENTS.get().remove(uri);
@@ -1051,11 +1051,12 @@ public final class MongoConfigUtil {
     }
     
     private static MongoClient getMongoClient(final MongoClientURI uri) throws UnknownHostException {
-        MongoClient mongoClient = CLIENTS.get().get(uri);
+        String stringUri = uri.toString();
+        MongoClient mongoClient = CLIENTS.get().get(stringUri);
             if (mongoClient == null) {
                 mongoClient = new MongoClient(uri);
-                CLIENTS.get().put(uri, mongoClient);
-                URI_MAP.get().put(mongoClient, uri);
+                CLIENTS.get().put(stringUri, mongoClient);
+                URI_MAP.get().put(mongoClient, stringUri);
             }
             return mongoClient;
         }
