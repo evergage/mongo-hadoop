@@ -29,3 +29,4 @@ tags
 target
 test-*.out
 hadoop-binaries
+sfci-target

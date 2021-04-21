@@ -4,13 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.evergage.thirdparty</groupId>
+        <groupId>com.evergage.thirdparty.mongodb</groupId>
         <artifactId>mongo-hadoop-parent</artifactId>
         <version>1.5.2-evg1</version>
     </parent>
 
-    <groupId>com.evergage.thirdparty.mongo-hadoop</groupId>
-    <artifactId>core</artifactId>
+    <groupId>com.evergage.thirdparty.mongodb.mongo-hadoop</groupId>
+    <artifactId>mongo-hadoop-core</artifactId>
     <version>1.5.2-evg1</version>
     <name>MongoDB Connector for Hadoop</name>
     <description>The MongoDB Connector for Hadoop is a plugin for Hadoop that provides the ability to use MongoDB as an input source and/or an output destination.</description>
