@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.evergage.thirdparty.mongodb</groupId>
+    <artifactId>mongo-hadoop-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.5.2-evg1</version>
+    <name>MongoDB Connector for Hadoop</name>
+    <description>The MongoDB Connector for Hadoop is a plugin for Hadoop that provides the ability to use MongoDB as an input source and/or an output destination.</description>
+    <url>https://github.com/mongodb/mongo-hadoop.git</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Various</name>
+            <organization>MongoDB</organization>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/mongodb/mongo-hadoop.git</connection>
+        <url>https://github.com/mongodb/mongo-hadoop.git</url>
+    </scm>
+
+    <modules>
+        <module>mongo-hadoop-core</module>
+    </modules>
+</project>
