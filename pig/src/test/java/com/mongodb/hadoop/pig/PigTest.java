@@ -191,7 +191,7 @@ public class PigTest extends BaseHadoopTest {
 
         runScript("/pig/schemaless.pig");
 
-        assertEquals(1000, db.getCollection("pig.schemaless.out").count());
+        assertEquals(1000, db.getCollection("pig.schemaless.out").countDocuments());
         assertNotNull(
           db.getCollection("pig.schemaless.out").find(
             new Document("_id", 999)).first());

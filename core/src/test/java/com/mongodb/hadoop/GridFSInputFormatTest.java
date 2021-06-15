@@ -59,14 +59,9 @@ public class GridFSInputFormatTest extends BaseHadoopTest {
     }
 
     private static void cleanFile(final String filename) {
-        bucket.find(new Document("filename", filename)).forEach(
-          new Block<GridFSFile>() {
-              @Override
-              public void apply(final GridFSFile gridFSFile) {
-                  bucket.delete(gridFSFile.getObjectId());
-              }
-          }
-        );
+        bucket.find(new Document("filename", filename)).forEach(gridFSFile -> {
+            bucket.delete(gridFSFile.getObjectId());
+        });
     }
 
     @BeforeClass

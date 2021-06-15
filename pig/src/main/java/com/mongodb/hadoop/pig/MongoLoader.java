@@ -2,7 +2,7 @@ package com.mongodb.hadoop.pig;
 
 import com.mongodb.hadoop.MongoInputFormat;
 import com.mongodb.hadoop.util.MongoConfigUtil;
-import com.mongodb.util.JSON;
+import com.mongodb.hadoop.util.JSON;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
@@ -88,7 +88,7 @@ public class MongoLoader extends LoadFunc
     private BasicBSONObject getProjection() {
         String projectionStr =
           getUDFProperties().getProperty(MongoConfigUtil.INPUT_FIELDS);
-        return (BasicBSONObject) JSON.parse(projectionStr);
+        return new JSON<BasicBSONObject>().parse(projectionStr, BasicBSONObject.class);
     }
 
     @Override

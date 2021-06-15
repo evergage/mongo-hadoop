@@ -36,63 +36,63 @@ def extract(destination, target, file) {
 }
 
 task installHadoop() << {
-    extract(hadoopBinaries, hadoopHome,
-            downloadFile("http://archive.apache.org/dist/hadoop/common/hadoop-${hadoopVersion}/hadoop-${hadoopVersion}.tar.gz"))
+//    extract(hadoopBinaries, hadoopHome,
+//            downloadFile("http://archive.apache.org/dist/hadoop/common/hadoop-${hadoopVersion}/hadoop-${hadoopVersion}.tar.gz"))
 }
 
 task installHive() << {
-    extract(hadoopBinaries, hiveHome,
-            downloadFile("https://archive.apache.org/dist/hive/hive-${hiveVersion}/apache-hive-${hiveVersion}-bin.tar.gz"))
+//    extract(hadoopBinaries, hiveHome,
+//            downloadFile("https://archive.apache.org/dist/hive/hive-${hiveVersion}/apache-hive-${hiveVersion}-bin.tar.gz"))
 }
 
 task installPig() << {
-    extract(hadoopBinaries, pigHome, downloadFile("https://archive.apache.org/dist/pig/pig-${pigVersion}/pig-${pigVersion}.tar.gz"))
+//    extract(hadoopBinaries, pigHome, downloadFile("https://archive.apache.org/dist/pig/pig-${pigVersion}/pig-${pigVersion}.tar.gz"))
 }
 
 task downloadEnronEmails() << {
-    extract(dataHome, dataHome, downloadFile('https://s3.amazonaws.com/mongodb-enron-email/enron_mongo.tar.bz2'))
+//    extract(dataHome, dataHome, downloadFile('https://s3.amazonaws.com/mongodb-enron-email/enron_mongo.tar.bz2'))
 }
 
 task downloadShakespeare() << {
-    // Download complete works from Project Gutenberg.
-    downloadFile('http://www.gutenberg.org/cache/epub/100/pg100.txt')
+//    // Download complete works from Project Gutenberg.
+//    downloadFile('http://www.gutenberg.org/cache/epub/100/pg100.txt')
 }
 
 task copyFiles(dependsOn: [installHadoop, installHive, installPig]) << {
-    def hadoopEtc
-    def hadoopLib
-    if (isHadoopV1) {
-        hadoopEtc = "${hadoopHome}/conf"
-        hadoopLib = "${hadoopHome}/lib"
-    } else {
-        hadoopEtc = "${hadoopHome}/etc/hadoop"
-        hadoopLib = "${hadoopHome}/share/hadoop/common"
-    }
-
-    println "Updating mongo jars"
-
-    safeCopy("core/build/libs/mongo-hadoop-core-${project(':core').version}.jar", hadoopLib, "mongo-hadoop-core.jar")
-    safeCopy("streaming/build/libs/mongo-hadoop-streaming-${project(':core').version}.jar", hadoopLib, "mongo-hadoop-streaming.jar")
-    safeCopy("hive/build/libs/mongo-hadoop-hive-${project(':core').version}.jar", hiveHome + '/lib', "mongo-hadoop-hive.jar")
-    safeCopy(findJar(":core", "mongo-java-driver"), hadoopLib, "mongo-java-driver.jar")
-    
-    println "Updating cluster configuration"
-    copy {
-        from 'clusterConfigs'
-        into hadoopEtc
-        exclude 'hive-site.xml'
-        filter ReplaceTokens, tokens: [
-                HADOOP_BINARIES: hadoopBinaries.toString()
-        ]
-    }
-    copy {
-        from 'clusterConfigs'
-        into "hive/build/resources/test"
-        include 'hive-site.xml'
-        filter ReplaceTokens, tokens: [
-                HIVE_HOME: hiveHome.toString()
-        ]
-    }
+//    def hadoopEtc
+//    def hadoopLib
+//    if (isHadoopV1) {
+//        hadoopEtc = "${hadoopHome}/conf"
+//        hadoopLib = "${hadoopHome}/lib"
+//    } else {
+//        hadoopEtc = "${hadoopHome}/etc/hadoop"
+//        hadoopLib = "${hadoopHome}/share/hadoop/common"
+//    }
+//
+//    println "Updating mongo jars"
+//
+//    safeCopy("core/build/libs/mongo-hadoop-core-${project(':core').version}.jar", hadoopLib, "mongo-hadoop-core.jar")
+//    safeCopy("streaming/build/libs/mongo-hadoop-streaming-${project(':core').version}.jar", hadoopLib, "mongo-hadoop-streaming.jar")
+//    safeCopy("hive/build/libs/mongo-hadoop-hive-${project(':core').version}.jar", hiveHome + '/lib', "mongo-hadoop-hive.jar")
+//    safeCopy(findJar(":core", "mongo-java-driver"), hadoopLib, "mongo-java-driver.jar")
+//
+//    println "Updating cluster configuration"
+//    copy {
+//        from 'clusterConfigs'
+//        into hadoopEtc
+//        exclude 'hive-site.xml'
+//        filter ReplaceTokens, tokens: [
+//                HADOOP_BINARIES: hadoopBinaries.toString()
+//        ]
+//    }
+//    copy {
+//        from 'clusterConfigs'
+//        into "hive/build/resources/test"
+//        include 'hive-site.xml'
+//        filter ReplaceTokens, tokens: [
+//                HIVE_HOME: hiveHome.toString()
+//        ]
+//    }
 }
 
 def findJar(String proj, String filter) {

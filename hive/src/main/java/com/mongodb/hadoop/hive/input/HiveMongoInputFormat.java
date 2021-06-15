@@ -28,7 +28,7 @@ import com.mongodb.hadoop.splitter.MongoSplitter;
 import com.mongodb.hadoop.splitter.MongoSplitterFactory;
 import com.mongodb.hadoop.splitter.SplitFailedException;
 import com.mongodb.hadoop.util.MongoConfigUtil;
-import com.mongodb.util.JSON;
+import com.mongodb.hadoop.util.JSON;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.fs.Path;
@@ -51,7 +51,7 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RecordReader;
 import org.apache.hadoop.mapred.Reporter;
 import org.apache.hadoop.util.StringUtils;
-import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -213,7 +213,7 @@ public class HiveMongoInputFormat extends HiveInputFormat<BSONWritable, BSONWrit
         if (null == colMapString) {
             return null;
         }
-        BSONObject mappingBSON = (BSONObject) JSON.parse(colMapString);
+        BasicBSONObject mappingBSON = new JSON<BasicBSONObject>().parse(colMapString, BasicBSONObject.class);
         Map<String, String> mapping = new HashMap<String, String>();
         for (String key : mappingBSON.keySet()) {
             mapping.put(key.toLowerCase(), (String) mappingBSON.get(key));

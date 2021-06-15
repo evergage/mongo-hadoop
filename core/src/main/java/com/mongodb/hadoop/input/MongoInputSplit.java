@@ -18,12 +18,10 @@ package com.mongodb.hadoop.input;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.Bytes;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoURI;
 import com.mongodb.hadoop.util.MongoConfigUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,6 +39,7 @@ import org.bson.BasicBSONEncoder;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 public class MongoInputSplit extends InputSplit implements Writable, org.apache.hadoop.mapred.InputSplit {
     private static final Log LOG = LogFactory.getLog(MongoInputSplit.class);
@@ -99,15 +98,6 @@ public class MongoInputSplit extends InputSplit implements Writable, org.apache.
 
     public MongoClientURI getInputURI() {
         return this.inputURI;
-    }
-
-    /**
-     * @deprecated use {@link #setAuthURI(MongoClientURI)} instead
-     * @param authURI a MongoDB URI providing credentials
-     */
-    @Deprecated
-    public void setAuthURI(final MongoURI authURI) {
-        setAuthURI(authURI != null ? new MongoClientURI(authURI.toString()) : null);
     }
 
     /**
@@ -232,7 +222,7 @@ public class MongoInputSplit extends InputSplit implements Writable, org.apache.
         BSONObject spec;
         byte[] l = new byte[4];
         in.readFully(l);
-        int dataLen = org.bson.io.Bits.readInt(l);
+        int dataLen = ByteBuffer.wrap(l).getInt();//org.bson.io.Bits.readInt(l);
         byte[] data = new byte[dataLen + 4];
         System.arraycopy(l, 0, data, 0, 4);
         in.readFully(data, 4, dataLen - 4);
@@ -280,13 +270,13 @@ public class MongoInputSplit extends InputSplit implements Writable, org.apache.
 
             this.cursor = coll.find(this.query, this.fields).sort(this.sort);
             if (this.notimeout) {
-                this.cursor.setOptions(Bytes.QUERYOPTION_NOTIMEOUT);
+                this.cursor.noCursorTimeout(true);
             }
             if (this.min != null) {
-                this.cursor.addSpecial("$min", this.min);
+                this.cursor.min(this.min);
             }
             if (this.max != null) {
-                this.cursor.addSpecial("$max", this.max);
+                this.cursor.max(this.max);
             }
             if (skip != null) {
                 cursor = cursor.skip(skip);

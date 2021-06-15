@@ -17,7 +17,7 @@
 package com.mongodb.hadoop.hive;
 
 import com.mongodb.hadoop.io.BSONWritable;
-import com.mongodb.util.JSON;
+import com.mongodb.hadoop.util.JSON;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
@@ -107,7 +107,7 @@ public class BSONSerDe implements SerDe {
         // Get mappings specified by the user
         if (tblProps.containsKey(MONGO_COLS)) {
             String mongoFieldsStr = tblProps.getProperty(MONGO_COLS);
-            Map<String, String> rules = ((BasicBSONObject) JSON.parse(mongoFieldsStr)).toMap();
+            Map<String, String> rules = (new JSON<BasicBSONObject>().parse(mongoFieldsStr, BasicBSONObject.class)).toMap();
 
             // register the hive field mappings to mongo field mappings
             hiveToMongo = new HashMap<String, String>();

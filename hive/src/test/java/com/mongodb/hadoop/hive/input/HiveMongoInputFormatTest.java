@@ -5,7 +5,7 @@ import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
 import com.mongodb.hadoop.hive.BSONSerDe;
 import com.mongodb.hadoop.hive.HiveTest;
-import com.mongodb.util.JSON;
+import com.mongodb.hadoop.util.JSON;
 import org.apache.hadoop.hive.ql.index.IndexPredicateAnalyzer;
 import org.apache.hadoop.hive.ql.index.IndexSearchCondition;
 import org.apache.hadoop.hive.ql.plan.ExprNodeColumnDesc;

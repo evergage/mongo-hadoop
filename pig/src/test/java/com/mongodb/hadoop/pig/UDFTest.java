@@ -66,7 +66,7 @@ public class UDFTest {
     public void testAsObjectId() throws IOException, ParseException {
         PigTest.runScript("/pig/toobjectid.pig");
 
-        assertEquals(insertedDocuments.size(), OUTPUT_COLLECTION.count());
+        assertEquals(insertedDocuments.size(), OUTPUT_COLLECTION.countDocuments());
         Iterator<Document> it = insertedDocuments.iterator();
         for (Document outputDoc : OUTPUT_COLLECTION.find()) {
             ObjectId expectedId = it.next().getObjectId("_id");
@@ -92,7 +92,7 @@ public class UDFTest {
     public void testAsDBRef() throws IOException, ParseException {
         PigTest.runScript("/pig/todbref.pig");
 
-        assertEquals(insertedDocuments.size(), OUTPUT_COLLECTION.count());
+        assertEquals(insertedDocuments.size(), OUTPUT_COLLECTION.countDocuments());
         Iterator<Document> it = insertedDocuments.iterator();
         for (Document outputDoc : OUTPUT_COLLECTION.find()) {
             assertEquals(it.next().get("dbref"), outputDoc.get("dbref"));
@@ -113,7 +113,7 @@ public class UDFTest {
     public void testObjectIdToSeconds() throws IOException, ParseException {
         PigTest.runScript("/pig/oidtoseconds.pig");
 
-        assertEquals(insertedDocuments.size(), OUTPUT_COLLECTION.count());
+        assertEquals(insertedDocuments.size(), OUTPUT_COLLECTION.countDocuments());
         Iterator<Document> it = insertedDocuments.iterator();
         for (Document outputDoc : OUTPUT_COLLECTION.find()) {
             int seconds = outputDoc.getInteger("seconds");
@@ -132,7 +132,7 @@ public class UDFTest {
         // correctly.
         PigTest.runScript("/pig/udfschemaless.pig");
 
-        assertEquals(insertedDocuments.size(), OUTPUT_COLLECTION.count());
+        assertEquals(insertedDocuments.size(), OUTPUT_COLLECTION.countDocuments());
         Iterator<Document> it = insertedDocuments.iterator();
         for (Document doc : OUTPUT_COLLECTION.find()) {
             // We don't know what Pig will call the fields that aren't "_id".

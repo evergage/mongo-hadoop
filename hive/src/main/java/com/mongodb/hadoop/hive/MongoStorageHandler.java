@@ -197,7 +197,7 @@ public class MongoStorageHandler extends DefaultStorageHandler
                 try {
                     coll.drop();
                 } finally {
-                    MongoConfigUtil.close(coll.getDB().getMongo());
+                    MongoConfigUtil.close(coll.getDB().getMongoClient());
                 }
             }
         }

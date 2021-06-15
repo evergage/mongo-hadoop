@@ -7,7 +7,7 @@ import org.apache.hadoop.streaming.io.IdentifierResolver;
 public class MongoIdentifierResolver extends IdentifierResolver {
     public static final String MONGODB_ID = "mongodb";
     public static final String MONGO_ID = "mongo";
-    public static final String BSON_ID = "bson";
+    public static final String BSON_ID = "org/bson";
     public static final String MONGODB_UPDATE = "mongoUpdate";
 
     @Override

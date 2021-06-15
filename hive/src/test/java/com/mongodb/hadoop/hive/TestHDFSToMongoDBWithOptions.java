@@ -1,7 +1,7 @@
 package com.mongodb.hadoop.hive;
 
 import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
+import com.mongodb.hadoop.util.JSON;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class TestHDFSToMongoDBWithOptions extends HiveTest {
         colsMap = colsMap.substring(1, colsMap.length() - 1);
         Set<String> docKeys = doc.keySet();
 
-        for (String s : ((Map<String, String>) JSON.parse(colsMap)).values()) {
+        for (String s : ((Map<String, String>) new JSON<Map>().parse(colsMap, Map.class)).values()) {
             assertTrue(docKeys.contains(s));
         }
     }

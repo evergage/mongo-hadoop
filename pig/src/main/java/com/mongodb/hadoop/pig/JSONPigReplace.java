@@ -17,7 +17,7 @@
 package com.mongodb.hadoop.pig;
 
 import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.util.JSON;
+import com.mongodb.hadoop.util.JSON;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.pig.ResourceSchema;
@@ -66,7 +66,7 @@ public class JSONPigReplace {
         reps = new HashMap<String, Object>();
 
         for (int i = 0; i < str.length; i++) {
-            initBSONs[i] = (BasicBSONObject) JSON.parse(str[i]);
+            initBSONs[i] = new JSON<BasicBSONObject>().parse(str[i], BasicBSONObject.class);
 
             // extract all strings that start with a $ in initStr
             try {

@@ -6,7 +6,7 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClientURI;
 import com.mongodb.hadoop.util.MongoClientURIBuilder;
 import com.mongodb.hadoop.util.MongoConfigUtil;
-import com.mongodb.util.JSON;
+import com.mongodb.hadoop.util.JSON;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Test;

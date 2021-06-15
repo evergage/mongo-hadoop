@@ -5,7 +5,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.hadoop.input.MongoRecordReader;
 import com.mongodb.hadoop.util.MongoConfigUtil;
-import com.mongodb.util.JSON;
+import com.mongodb.hadoop.util.JSON;
 import org.apache.pig.LoadPushDown;
 import org.apache.pig.data.DataBag;
 import org.apache.pig.data.DataByteArray;
@@ -349,6 +349,6 @@ public class MongoLoaderTest {
         assertEquals(
           new BasicDBObjectBuilder()
             .add("a", true).add("m.x", true).add("_id", false).get(),
-          JSON.parse(props.getProperty(MongoConfigUtil.INPUT_FIELDS)));
+          new JSON<BasicDBObjectBuilder>().parse(props.getProperty(MongoConfigUtil.INPUT_FIELDS), BasicDBObjectBuilder.class));
     }
 }

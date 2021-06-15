@@ -7,12 +7,12 @@ apply plugin: 'com.github.ben-manes.versions'
 
 ext.configDir = new File(rootDir, 'config')
 ext.hadoopBinaries = "${rootDir}/hadoop-binaries".toString()
-ext.javaDriverVersion = '3.2.1'
+ext.javaDriverVersion = '4.2.3'
 ext.hiveVersion = System.getenv("HIVE_VERSION") ?: '1.2.1'
 ext.pigVersion = System.getenv("PIG_VERSION") ?: '0.15.0'
 ext.hadoopVersion = System.getenv("HADOOP_VERSION") ?: '2.7.2'
-ext.sparkVersion = System.getenv("SPARK_VERSION") ?: '1.6.0'
-ext.scalaVersion = System.getenv("SCALA_VERSION") ?: '2.11'
+ext.sparkVersion = System.getenv("SPARK_VERSION") ?: '1.3.1'
+ext.scalaVersion = System.getenv("SCALA_VERSION") ?: '2.10'
 ext.isHadoopV1 = "$hadoopVersion".startsWith("1.")
 
 ext.hadoopHome = System.getenv("HADOOP_HOME") ?: "${hadoopBinaries}/hadoop-${hadoopVersion}".toString()
@@ -58,7 +58,7 @@ if(project.hasProperty("clusterVersion")) {
 }
 
 allprojects {
-    version = '2.0.2'
+    version = '2.0.3'
     group = 'org.mongodb.mongo-hadoop'
 }
 
@@ -77,8 +77,8 @@ configure(subprojects) {
     }
 
 
-    sourceCompatibility = JavaVersion.VERSION_1_6
-    targetCompatibility = JavaVersion.VERSION_1_6
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
 /*
     configurations {
@@ -95,7 +95,7 @@ configure(subprojects) {
 */
 
     dependencies {
-        compile "org.mongodb:mongo-java-driver:${javaDriverVersion}"
+        compile "org.mongodb:mongodb-driver-legacy:${javaDriverVersion}"
 
         testCompile 'junit:junit:4.11'
         testCompile 'org.hamcrest:hamcrest-all:1.3'
