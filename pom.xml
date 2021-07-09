@@ -5,7 +5,7 @@
     <groupId>com.evergage.thirdparty.mongodb</groupId>
     <artifactId>mongo-hadoop-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.2-evg1</version>
+    <version>1.5.2-evg2</version>
     <name>MongoDB Connector for Hadoop</name>
     <description>The MongoDB Connector for Hadoop is a plugin for Hadoop that provides the ability to use MongoDB as an input source and/or an output destination.</description>
     <url>https://github.com/mongodb/mongo-hadoop.git</url>
@@ -30,4 +30,18 @@
     <modules>
         <module>mongo-hadoop-core</module>
     </modules>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
